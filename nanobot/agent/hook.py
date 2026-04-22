@@ -24,6 +24,12 @@ class AgentHookContext:
     final_content: str | None = None
     stop_reason: str | None = None
     error: str | None = None
+    # Routing identifier for the turn this context belongs to. Hooks that
+    # keep per-turn state (e.g. streaming TTS that buffers sentences across
+    # deltas) key their internal dicts on this. None means the caller did
+    # not supply one — hooks should no-op in that case rather than sharing
+    # state across sessions.
+    session_key: str | None = None
 
 
 class AgentHook:
